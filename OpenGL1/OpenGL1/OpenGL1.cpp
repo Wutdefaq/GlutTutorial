@@ -7,15 +7,62 @@
 
 void changeSize(int w, int h) 
 {
-	//This function activates when size of window is changed
+	// Prevent a divide by zero, when window is too short
+	// (you cant make a window of zero width).
+	if (h == 0)
+		h = 1;
+	float ratio = 1.0 * w / h;
 
+	// Use the Projection Matrix
+	glMatrixMode(GL_PROJECTION);
+
+	// Reset Matrix
+	glLoadIdentity();
+
+	// Set the viewport to be the entire window
+	glViewport(0, 0, w, h);
+
+	// Set the correct perspective.
+	gluPerspective(45, ratio, 1, 1000);
+
+	// Get Back to the Modelview
+	glMatrixMode(GL_MODELVIEW);
 
 }
 
 void display(void)
 {
-	//Draw a blue circle
+	// white background
+	glClearColor(1.0, 1.0, 1.0, 1.0); 
+
+	// clear buffer 
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// color of triangle
+	glColor3f(0.0f, 0.0f, 1.0f);
 	
+	// calculations
+	GLfloat radius = 0.5f;
+	GLfloat Angle;
+	GLfloat x, y;
+	GLint Pointnumber = 5000;
+	
+	// start to draw line
+	glBegin(GL_POLYGON);
+
+	for (float i = 0; i < Pointnumber; i++)
+	{
+		Angle = i * 2.0f * PI / Pointnumber;
+		x = radius * cos(Angle);
+		y = radius * sin(Angle);
+		glVertex3f(x, y ,-5.0f);
+	}
+
+	// finish drawing
+	glEnd();
+
+	// flush the buffer
+	glFlush();
 
 }
 
