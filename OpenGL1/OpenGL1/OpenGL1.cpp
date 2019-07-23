@@ -5,7 +5,8 @@
 #define PI 3.14159
 
 
-void changeSize(int w, int h) {
+void changeSize(int w, int h) 
+{
 	//This function activates when size of window is changed
 
 
